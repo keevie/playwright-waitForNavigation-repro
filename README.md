@@ -15,7 +15,7 @@ Behavior -- browser does not wait for the redirect to happen, and so the test fa
 Case 2: Chrome, no wait for navigaiton: 
 
 ```
-docker run -it playwright-crash-repro npx playwright test -g no-wait --project chrom
+docker run -it playwright-crash-repro npx playwright test -g no-wait --project chrome
 ```
 Behavior -- everything works perfectly.
 
