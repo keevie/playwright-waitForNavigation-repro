@@ -5,29 +5,27 @@ To reproduce the weirdness -- 4 cases.
 docker build -t playwright-crash-repro .        
 ```
 
-
-Case 1: Firefox, no wait for navigation: 
+Case 1: Firefox, tracing: 
 ```
-docker run -it playwright-crash-repro npx playwright test -g no-wait --project firefox
+docker run -it playwright-crash-repro npx playwright test -c tracing.config.ts --project firefox --repeat-each 20
 ```
-Behavior -- browser does not wait for the redirect to happen, and so the test fails.
+Behavior: intermittent crashes
 
-Case 2: Chrome, no wait for navigaiton: 
-
+Case 2: Firefox, no tracing: 
 ```
-docker run -it playwright-crash-repro npx playwright test -g no-wait --project chrome
+docker run -it playwright-crash-repro npx playwright test --project firefox --repeat-each 20
 ```
 Behavior -- everything works perfectly.
 
-Case 3: Chrome, wait for navigation: 
+Case 3: Chrome, tracing: 
 ```
-docker run -it playwright-crash-repro npx playwright test -g reproduction.spec --project chrome
+docker run -it playwright-crash-repro npx playwright test -c tracing.config.ts --project chrome --repeat-each 20
 ```
-Behavior -- waitForNavigation hangs forever and times out
 
-Case 4: Firefox, wait for navigation: 
+Behavior -- everything works perfectly.
+Case 4: Chrome, no tracing: 
+```
+docker run -it playwright-crash-repro npx playwright test --project chrome --repeat-each 20
+```
 
-```
-docker run -it playwright-crash-repro npx playwright test -g reproduction.spec --project firefox
-```
-Behavior -- run is flaky, about half the time we crash because the page gets closed "page.goto: Target page, context or browser has been closed"
+Behavior -- everything works perfectly.
