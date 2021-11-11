@@ -14,13 +14,18 @@ app.get('/one', (req, res) => {
 })
 
 app.post('/one', (req, res) => {
-  return res.redirect('/two');
+  setTimeout(() => {
+    return res.redirect('/two');
+  }, 2000)
 })
 
 app.get('/two', (req, res) => {
+  setTimeout(() => {
   return res.send(`<body>
     hello world
   </body>`)
+
+  }, 1000)
 
 })
 

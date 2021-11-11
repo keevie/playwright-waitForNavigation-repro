@@ -19,7 +19,7 @@ const config: PlaywrightTestConfig = {
     viewport: defaultViewport,
     ignoreHTTPSErrors: true,
     video: "retain-on-failure",
-    // trace: "retain-on-failure",
+    trace: "retain-on-failure",
     screenshot: 'only-on-failure',
   },
   projects: [

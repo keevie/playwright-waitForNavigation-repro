@@ -12,8 +12,8 @@ test.describe.serial('does some tests', () => {
 
   test.afterAll(async () => {
     await page.goto('localhost:3000/one')
-    await page.waitForTimeout(1000)
     await page.evaluate(`console.log('hello')`)
+    await page.evaluate(`setTimeout(() => {}, 2000)`)
     await page.close();
   })
 
@@ -23,8 +23,16 @@ test.describe.serial('does some tests', () => {
     expect(resultUrl.pathname.split('/').slice(-1)[0]).not.toEqual('exit');
   })
 
+  test('does an instant thing', async() => {
+    const resultUrl = new URL(page.url());
+    expect(resultUrl.pathname.split('/').slice(-1)[0]).not.toEqual('exit');
+  })
+
+  test('clicks on the page', async() => {
+    await page.click('body')
+  })
+
   test('does another thing',  async () => {
-    await page.waitForNavigation({ waitUntil: "domcontentloaded" });
     const resultUrl = new URL(page.url());
     expect(resultUrl.pathname.split('/').slice(-1)[0]).toEqual('two');
   })
